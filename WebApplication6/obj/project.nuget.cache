@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SVuueKqnqyU7zvjUDL4nV+drGxmcdjX8xqcsp4nF8SZZGnIukKlGMyH6HiHuymlKA+b0HjgMg36FtU0RWhEPVA==",
+  "dgSpecHash": "wGtnC7G/099R6Xwx9pAMRQZmM0+C37axz7TeE4LmFo0rMNh9k5J3cv3ds9Hz+b+LjZ5RqfTMvrpKkyVbi95PEA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ll novbe\\source\\repos\\WebApplication6\\WebApplication6\\WebApplication6.csproj",
+  "projectFilePath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\WebApplication6\\WebApplication6.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ll novbe\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\ll novbe\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

@@ -51,17 +51,53 @@ namespace WebApplication6.Areas.Manage.Controllers
         [HttpPost]
         public IActionResult Update(Slider slider)
         {
-            if (!ModelState.IsValid) return View();
+             if (!ModelState.IsValid) return View();
 
             Slider existSlider = _context.Slider.FirstOrDefault(x => x.Id == slider.Id);
 
             if (existSlider == null) return NotFound();
+            string oldFilePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + existSlider.Image;
+
+            if (slider.formFile != null)
+            {
+
+                string newFileName = slider.formFile.FileName;
+                if (slider.formFile.ContentType != "image/jpeg" && slider.formFile.ContentType != "image/png")
+                {
+                    ModelState.AddModelError("FormFile", "ancaq sekil yukle :)");
+                }
+
+                if (slider.formFile.Length > 1048576)
+                {
+                    ModelState.AddModelError("FormFile", "guce salma 1 mb az yukle");
+                }
+
+                if (slider.formFile.FileName.Length > 64)
+                {
+                    newFileName = newFileName.Substring(newFileName.Length - 64, 64);
+                }
+
+                newFileName = Guid.NewGuid().ToString() + newFileName;
+
+                string newFilePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + newFileName;
+                using (FileStream fileStream = new FileStream(newFilePath, FileMode.Create))
+                {
+                    slider.formFile.CopyTo(fileStream);
+                }
+
+                if (System.IO.File.Exists(oldFilePath))
+                {
+                    System.IO.File.Delete(oldFilePath);
+                }
+
+                existSlider.Image = newFileName;
+            }
 
             existSlider.Title = slider.Title;
             existSlider.Descirption = slider.Descirption;
             existSlider.RedirectorUrl = slider.RedirectorUrl;
             existSlider.RedirectorUrlText = slider.RedirectorUrlText;
-            existSlider.ImageUrl = slider.ImageUrl;
+            
 
 
             _context.SaveChanges();
@@ -81,14 +117,20 @@ namespace WebApplication6.Areas.Manage.Controllers
         [HttpPost]
         public IActionResult Delete(Slider slider)
         {
-            var existSilider = _context.Services.FirstOrDefault(x => x.Id == slider.Id);
+            var existSilider = _context.Slider.FirstOrDefault(x => x.Id == slider.Id);
 
             if (existSilider == null)
             {
                 return NotFound();
             }
+             string filePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + existSilider.Image;
 
-            _context.Services.Remove(existSilider);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+            _context.Slider.Remove(existSilider);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
