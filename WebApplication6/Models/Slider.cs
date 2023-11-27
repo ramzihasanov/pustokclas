@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WebApplication6.DAL;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication6.Models
 {
@@ -11,7 +11,7 @@ namespace WebApplication6.Models
         public string? ImageUrl { get; set; }
         public string RedirectorUrl { get; set; }
         public string RedirectorUrlText { get; set; }
-          [NotMapped]
+        [NotMapped]
         public IFormFile? formFile { get; set; }
 
 

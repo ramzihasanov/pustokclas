@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication6.DAL;
-using WebApplication6.Models;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {
@@ -56,7 +54,7 @@ namespace WebApplication6.Areas.Manage.Controllers
             Slider existSlider = _context.Slider.FirstOrDefault(x => x.Id == slider.Id);
 
             if (existSlider == null) return NotFound();
-            string oldFilePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + existSlider.Image;
+            string oldFilePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + existSlider.ImageUrl;
 
             if (slider.formFile != null)
             {
@@ -90,7 +88,7 @@ namespace WebApplication6.Areas.Manage.Controllers
                     System.IO.File.Delete(oldFilePath);
                 }
 
-                existSlider.Image = newFileName;
+                existSlider.ImageUrl = newFileName;
             }
 
             existSlider.Title = slider.Title;
@@ -123,7 +121,7 @@ namespace WebApplication6.Areas.Manage.Controllers
             {
                 return NotFound();
             }
-             string filePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + existSilider.Image;
+             string filePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + existSilider.ImageUrl;
 
             if (System.IO.File.Exists(filePath))
             {

@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WebApplication6.DAL;
-using WebApplication6.Models;
 using WebApplication6.ViewModels;
 
 namespace WebApplication6.Controllers
