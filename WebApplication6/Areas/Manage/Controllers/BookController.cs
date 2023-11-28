@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {
@@ -82,7 +83,9 @@ namespace WebApplication6.Areas.Manage.Controllers
             ViewBag.Tags = _context.Tags.ToList();
 
             if (!ModelState.IsValid) return View();
-            var existBook = _context.Books.FirstOrDefault(x => x.Id == id);
+            var existBook = _context.Books.Include(x => x.BookTags).FirstOrDefault(x => x.Id == id);
+
+            existBook.TagIds = existBook.BookTags.Select(x => x.TagId).ToList();
             return View(existBook);
         }
 
@@ -91,8 +94,9 @@ namespace WebApplication6.Areas.Manage.Controllers
         {
             ViewBag.Authors = _context.Authors.ToList();
             ViewBag.Genres = _context.Genres.ToList();
+            ViewBag.Tags = _context.Tags.ToList();
 
-            var existBook = _context.Books.FirstOrDefault(b => b.Id == book.Id);
+            var existBook = _context.Books.Include(x => x.BookTags).FirstOrDefault(x => x.Id == book.Id);
             if (existBook == null) return NotFound();
             if (!ModelState.IsValid) return View(book);
             if (!_context.Authors.Any(x => x.Id == book.AuthorId))
@@ -105,36 +109,16 @@ namespace WebApplication6.Areas.Manage.Controllers
                 ModelState.AddModelError("GenreId", "Genre not found!!!");
                 return View();
             }
+            existBook.BookTags.RemoveAll(x => !book.TagIds.Contains(x.TagId));
+            foreach (var item in book.TagIds.Where(x => !existBook.BookTags.Any(y => y.TagId == x)))
+            {
+                BookTag booktag = new BookTag
+                {
+                    TagId = item
+                };  
+                existBook.BookTags.Add(booktag);
+            }
 
-            var check = false;
-            if (book.TagIds != null)
-            {
-                foreach (var tagId in book.TagIds)
-                {
-                    if (!_context.Tags.Any(x => x.Id == tagId))
-                        check = true;
-                }
-            }
-            if (check)
-            {
-                ModelState.AddModelError("TagId", "Tag not found!");
-                return View(book);
-            }
-            else
-            {
-                if (book.TagIds != null)
-                {
-                    foreach (var tagId in book.TagIds)
-                    {
-                        BookTag bookTag = new BookTag
-                        {
-                            Book = book,
-                            TagId = tagId
-                        };
-                        _context.BookTags.Add(bookTag);
-                    }
-                }
-            }
             existBook.Name = book.Name;
             existBook.Description = book.Description;
             existBook.CostPrice = book.CostPrice;
