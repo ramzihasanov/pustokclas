@@ -77,6 +77,28 @@
                 IsAvailable
             </label>
         </div>
+        <div class="row col-12 my-4 align-items-center flex-column" style="padding:0px;">
+            <div class="col-md-12 d-flex align-items-center justify-content-center mt-4">
+                <label asp-for="FaceImage">MainImage</label>
+                <input class="form-control  ml-3" asp-for="FaceImage" />
+                <span asp-validation-for="FaceImage" style="color:red"></span>
+            </div>
+            <div class="col-md-12 d-flex align-items-center justify-content-center mt-4">
+                <label asp-for="BackViewImg">HoverImage</label>
+                <input class="form-control  ml-3" asp-for="BackViewImg" />
+                <span asp-validation-for="BackViewImg" style="color:red"></span>
+            </div>
+            <div class="col-md-12 d-flex align-items-center justify-content-center mt-4">
+                <label asp-for="BookDetailImgs">SlideImages</label>
+                <input class="form-control ml-3" asp-for="BookDetailImgs" />
+                <span asp-validation-for="BookDetailImgs" style="color:red"></span>
+            </div>
+        </div>
+        <div class="form-check form-switch mt-5 mb-3 col-md-2" style="padding-left:40px;">
+            <input class="form-check-input" type="checkbox" id="" asp-for="IsAvailable">
+            <label class="form-check-label" asp-for="IsAvailable" for="">Availability</label>
+            <span asp-validation-for="IsAvailable" style="color:red"></span>
+        </div>
         <button type="submit" class="btn btn-primary">CREATE</button>
     </form>
 

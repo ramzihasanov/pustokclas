@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(opt=>{
-opt.UseSqlServer("Server=DESKTOP-V775DN1;Database=NurgetBB206;Trusted_Connection=True");
+opt.UseSqlServer("Server=LAPTOP-NMS9BKLR;Database=NurgetBB206;Trusted_Connection=True");
 
 });
 var app = builder.Build();

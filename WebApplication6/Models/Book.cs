@@ -20,6 +20,17 @@ namespace WebApplication6.Models
         public List<BookTag>? BookTags { get; set; }
         [NotMapped]
         public List<int>? TagIds { get; set; }
+        public List<BookImage>? BookImages { get; set; }
+        [NotMapped]
+        public IFormFile? FaceImage { get; set; }
+        [NotMapped]
+        public IFormFile? BackViewImg { get; set; }
+        [NotMapped]
+        public List<IFormFile>? BookDetailImgs { get; set; }
+        [NotMapped]
+        public List<int>? BookImagesIds { get; set; }
+
+
 
     }
 }

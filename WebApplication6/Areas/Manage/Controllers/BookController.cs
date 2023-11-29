@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication6.Helpers;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {
@@ -7,10 +8,12 @@ namespace WebApplication6.Areas.Manage.Controllers
     public class BookController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public BookController(AppDbContext Context)
+        public BookController(AppDbContext Context,IWebHostEnvironment env)
         {
             _context = Context;
+            _env = env;
         }
         public IActionResult Index()
         {
@@ -46,13 +49,15 @@ namespace WebApplication6.Areas.Manage.Controllers
             {
                 foreach (var tagId in book.TagIds)
                 {
-                    if (!_context.Tags.Any(x => x.Id == tagId))
-                        check = true;
+                    if (!_context.Tags.Any(x => x.Id == tagId)) { 
+                    check = true;
+                    break;
+                     }
                 }
             }
             if (check)
             {
-                ModelState.AddModelError("TagId", "Tag not found!");
+                ModelState.AddModelError("TagId", "Tag not found!!!");
                 return View(book);
             }
             else
@@ -70,6 +75,85 @@ namespace WebApplication6.Areas.Manage.Controllers
                     }
                 }
             }
+            if (book.FaceImage != null)
+            {
+
+                if (book.FaceImage.ContentType != "image/png" && book.FaceImage.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("FaceImage", "ancaq sekil yukle");
+                    return View();
+                }
+
+                if (book.FaceImage.Length > 1048576)
+                {
+                    ModelState.AddModelError("FaceImage", "1 mb dan az yukle pul yazir ");
+                    return View();
+                }
+
+                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.FaceImage);
+                BookImage bookImage = new BookImage
+                {
+                    book = book,
+                    ImageUrl = newFileName,
+                    IsPoster = true,
+                };
+                _context.BookImages.Add(bookImage);
+            };
+
+
+            if (book.BackViewImg != null)
+            {
+
+                if (book.BackViewImg.ContentType != "image/png" && book.BackViewImg.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("BackViewImg", "ancaq sekil yuklemek olur");
+                    return View();
+                }
+
+                if (book.BackViewImg.Length > 1048576)
+                {
+                    ModelState.AddModelError("BackViewImg", "1 mb dan cox yukleme ");
+                    return View();
+                }
+
+                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.BackViewImg);
+                BookImage bookImage = new BookImage
+                {
+                    book = book,
+                    ImageUrl = newFileName,
+                    IsPoster = false,
+                };
+                _context.BookImages.Add(bookImage);
+            };
+
+            if (book.BookDetailImgs != null)
+            {
+                foreach (var img in book.BookDetailImgs)
+                {
+                    string fileName = img.FileName;
+                    if (img.ContentType != "image/png" && img.ContentType != "image/jpeg")
+                    {
+                        ModelState.AddModelError("BookDetailImgs", "ancaq sekilyukle");
+                        return View();
+                    }
+
+                    if (img.Length > 1048576)
+                    {
+                        ModelState.AddModelError("BookDetailImgs", "1 mb dan cox yukleme ");
+                        return View();
+                    }
+
+                    string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", img);
+                    BookImage bookImage = new BookImage
+                    {
+                        book = book,
+                        ImageUrl = newFileName,
+                        IsPoster = null,
+                    };
+                    _context.BookImages.Add(bookImage);
+                }
+            }
+
 
             _context.Books.Add(book);
             _context.SaveChanges();
@@ -115,8 +199,88 @@ namespace WebApplication6.Areas.Manage.Controllers
                 BookTag booktag = new BookTag
                 {
                     TagId = item
-                };  
+                };
                 existBook.BookTags.Add(booktag);
+            }
+            existBook.BookImages.RemoveAll(x => !book.BookImagesIds.Contains(x.Id) && x.IsPoster == true);
+
+            if (book.FaceImage != null)
+            {
+
+                if (book.FaceImage.ContentType != "image/png" && book.FaceImage.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("FaceImage", "ancaq sekil yukle");
+                    return View();
+                }
+
+                if (book.FaceImage.Length > 1048576)
+                {
+                    ModelState.AddModelError("FaceImage", "1 mb dan az yukle pul yazir ");
+                    return View();
+                }
+
+                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.FaceImage);
+                BookImage bookImage = new BookImage
+                {
+                    book = book,
+                    ImageUrl = newFileName,
+                    IsPoster = true,
+                };
+                _context.BookImages.Add(bookImage);
+            };
+
+
+            if (book.BackViewImg != null)
+            {
+
+                if (book.BackViewImg.ContentType != "image/png" && book.BackViewImg.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("BackViewImg", "ancaq sekil yuklemek olur");
+                    return View();
+                }
+
+                if (book.BackViewImg.Length > 1048576)
+                {
+                    ModelState.AddModelError("BackViewImg", "1 mb dan cox yukleme ");
+                    return View();
+                }
+
+                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.BackViewImg);
+                BookImage bookImage = new BookImage
+                {
+                    book = book,
+                    ImageUrl = newFileName,
+                    IsPoster = false,
+                };
+                _context.BookImages.Add(bookImage);
+            };
+
+            if (book.BookDetailImgs != null)
+            {
+                foreach (var img in book.BookDetailImgs)
+                {
+                    string fileName = img.FileName;
+                    if (img.ContentType != "image/png" && img.ContentType != "image/jpeg")
+                    {
+                        ModelState.AddModelError("BookDetailImgs", "ancaq sekilyukle");
+                        return View();
+                    }
+
+                    if (img.Length > 1048576)
+                    {
+                        ModelState.AddModelError("BookDetailImgs", "1 mb dan cox yukleme ");
+                        return View();
+                    }
+
+                    string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", img);
+                    BookImage bookImage = new BookImage
+                    {
+                        book = book,
+                        ImageUrl = newFileName,
+                        IsPoster = null,
+                    };
+                    _context.BookImages.Add(bookImage);
+                }
             }
 
             existBook.Name = book.Name;
@@ -133,15 +297,30 @@ namespace WebApplication6.Areas.Manage.Controllers
             return RedirectToAction("Index");
         }
         public IActionResult Delete(int id)
+
         {
-            var wanted = _context.Books.FirstOrDefault(x => x.Id == id);
-            if (wanted == null) return NotFound();
-            return View(wanted);
+            ViewBag.Authors = _context.Authors.ToList();
+            ViewBag.Genres = _context.Genres.ToList();
+            ViewBag.Tags = _context.Tags.ToList();
+
+            if (id == null) return NotFound("Error");
+
+            Book book = _context.Books.Include(x => x.BookImages).FirstOrDefault(x => x.Id == id);
+
+            if (book == null) return NotFound("Error");
+
+
+            return View(book);
+
+
         }
         [HttpPost]
         public IActionResult Delete(Book book)
         {
-            var wanted = _context.Books.FirstOrDefault(x => x.Id == book.Id);
+            ViewBag.Authors = _context.Authors.ToList();
+            ViewBag.Genres = _context.Genres.ToList();
+            ViewBag.Tags = _context.Tags.ToList();
+            var wanted = _context.Books.Include(x=>x.BookImages).FirstOrDefault(x => x.Id == book.Id);
             if (wanted == null) return NotFound();
             _context.Books.Remove(wanted);
             _context.SaveChanges();
