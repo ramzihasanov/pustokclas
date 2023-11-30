@@ -18,6 +18,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/manage/css/sb-admin-2.min.css" rel="stylesheet">
+    @RenderSection("cssFiles",required:false)
 
 </head>
 
@@ -419,7 +420,7 @@
     <!-- Page level custom scripts -->
     <script src="~/manage/js/demo/chart-area-demo.js"></script>
     <script src="~/manage/js/demo/chart-pie-demo.js"></script>
-
+        @RenderSection("jsFiles",required:false)
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace WebApplication6.Areas.Manage.Controllers
@@ -59,16 +60,13 @@ namespace WebApplication6.Areas.Manage.Controllers
         {
             var wanted = _context.Genres.FirstOrDefault(x => x.Id == id);
             if (wanted == null) return NotFound();
-            return View(wanted);
-        }
-        [HttpPost]
-        public IActionResult Delete(Genre genre)
-        {
-            var wanted = _context.Genres.FirstOrDefault(x => x.Id == genre.Id);
-            if (wanted == null) return NotFound();
-            _context.Genres.Remove(wanted);
+            Genre genre = _context.Genres.FirstOrDefault(x => x.Id == id);
+            if (genre == null) return NotFound();
+            _context.Genres.Remove(genre);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+
+            return Ok();
         }
+      
     }
 }

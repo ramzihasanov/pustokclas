@@ -167,7 +167,7 @@ namespace WebApplication6.Areas.Manage.Controllers
             ViewBag.Tags = _context.Tags.ToList();
 
             if (!ModelState.IsValid) return View();
-            var existBook = _context.Books.Include(x => x.BookTags).FirstOrDefault(x => x.Id == id);
+            var existBook = _context.Books.Include(x => x.BookTags).Include(x=>x.BookImages).FirstOrDefault(x => x.Id == id);
 
             existBook.TagIds = existBook.BookTags.Select(x => x.TagId).ToList();
             return View(existBook);
@@ -180,7 +180,7 @@ namespace WebApplication6.Areas.Manage.Controllers
             ViewBag.Genres = _context.Genres.ToList();
             ViewBag.Tags = _context.Tags.ToList();
 
-            var existBook = _context.Books.Include(x => x.BookTags).FirstOrDefault(x => x.Id == book.Id);
+            var existBook = _context.Books.Include(x => x.BookTags).Include(x=>x.BookImages).FirstOrDefault(x => x.Id == book.Id);
             if (existBook == null) return NotFound();
             if (!ModelState.IsValid) return View(book);
             if (!_context.Authors.Any(x => x.Id == book.AuthorId))
@@ -202,7 +202,7 @@ namespace WebApplication6.Areas.Manage.Controllers
                 };
                 existBook.BookTags.Add(booktag);
             }
-            existBook.BookImages.RemoveAll(x => !book.BookImagesIds.Contains(x.Id) && x.IsPoster == true);
+              existBook.BookImages.RemoveAll(x => !book.BookImagesIds.Contains(x.Id) && x.IsPoster == true);
 
             if (book.FaceImage != null)
             {
@@ -226,7 +226,7 @@ namespace WebApplication6.Areas.Manage.Controllers
                     ImageUrl = newFileName,
                     IsPoster = true,
                 };
-                _context.BookImages.Add(bookImage);
+                existBook.BookImages.Add(bookImage);
             };
 
 
@@ -252,7 +252,7 @@ namespace WebApplication6.Areas.Manage.Controllers
                     ImageUrl = newFileName,
                     IsPoster = false,
                 };
-                _context.BookImages.Add(bookImage);
+                existBook.BookImages.Add(bookImage);
             };
 
             if (book.BookDetailImgs != null)
@@ -279,7 +279,7 @@ namespace WebApplication6.Areas.Manage.Controllers
                         ImageUrl = newFileName,
                         IsPoster = null,
                     };
-                    _context.BookImages.Add(bookImage);
+                    existBook.BookImages.Add(bookImage);
                 }
             }
 
@@ -308,23 +308,14 @@ namespace WebApplication6.Areas.Manage.Controllers
             Book book = _context.Books.Include(x => x.BookImages).FirstOrDefault(x => x.Id == id);
 
             if (book == null) return NotFound("Error");
-
-
-            return View(book);
-
-
-        }
-        [HttpPost]
-        public IActionResult Delete(Book book)
-        {
-            ViewBag.Authors = _context.Authors.ToList();
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Tags = _context.Tags.ToList();
-            var wanted = _context.Books.Include(x=>x.BookImages).FirstOrDefault(x => x.Id == book.Id);
-            if (wanted == null) return NotFound();
-            _context.Books.Remove(wanted);
+            _context.Books.Remove(book);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+
+
+            return Ok();
+
+
         }
+        
     }
 }

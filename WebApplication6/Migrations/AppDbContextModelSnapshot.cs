@@ -80,6 +80,15 @@ namespace WebApplication6.Migrations
                     b.Property<double>("Tax")
                         .HasColumnType("float");
 
+                    b.Property<bool>("isBestseller")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isFeatured")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isNew")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");

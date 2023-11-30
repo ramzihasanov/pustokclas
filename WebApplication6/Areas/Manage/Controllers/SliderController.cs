@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {
@@ -105,33 +106,15 @@ namespace WebApplication6.Areas.Manage.Controllers
 
         public IActionResult Delete(int id)
         {
+            if (id == null) return NotFound();
             Slider wantedSilider = _context.Slider.FirstOrDefault(s => s.Id == id);
 
             if (wantedSilider == null) return NotFound();
-
-            return View(wantedSilider);
-        }
-
-        [HttpPost]
-        public IActionResult Delete(Slider slider)
-        {
-            var existSilider = _context.Slider.FirstOrDefault(x => x.Id == slider.Id);
-
-            if (existSilider == null)
-            {
-                return NotFound();
-            }
-             string filePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + existSilider.ImageUrl;
-
-            if (System.IO.File.Exists(filePath))
-            {
-                System.IO.File.Delete(filePath);
-            }
-
-            _context.Slider.Remove(existSilider);
+            _context.Slider.Remove(wantedSilider);
             _context.SaveChanges();
-
-            return RedirectToAction("Index");
+            return Ok();
         }
+
+      
     }
 }

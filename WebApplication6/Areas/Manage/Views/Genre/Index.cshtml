@@ -2,7 +2,9 @@
 @{
     int counter = 0;
 }
-
+@section cssFiles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.1/sweetalert2.min.css" />
+}
 <div>
     <h1>Create Genre</h1>
     <a asp-controller="genre" asp-action="create" class="btn btn-primary ">Create</a>
@@ -36,3 +38,7 @@
     </tbody>
 </table>
 </table>
+@section jsFiles{
+    <script src="~/assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.1/sweetalert2.min.js"></script>
+}

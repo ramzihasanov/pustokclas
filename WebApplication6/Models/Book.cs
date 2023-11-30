@@ -16,6 +16,9 @@ namespace WebApplication6.Models
         public int AuthorId { get; set; }
         public Author? Author { get; set; }
         public int GenreId { get; set; }
+        public bool isNew { get; set; }
+        public bool isFeatured { get; set; }
+        public bool isBestseller { get; set; }
         public Genre? Genre { get; set; }
         public List<BookTag>? BookTags { get; set; }
         [NotMapped]

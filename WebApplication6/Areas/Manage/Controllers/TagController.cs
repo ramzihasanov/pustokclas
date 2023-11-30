@@ -77,24 +77,13 @@ namespace WebApplication6.Areas.Manage.Controllers
             if (id == null) return NotFound();
 
             Tag tag = _DbContext.Tags.FirstOrDefault(t => t.Id == id);
-            return View(tag);
-        }
+            if (tag == null) return NotFound();
 
-        [HttpPost]
-        public IActionResult Delete(Tag tag)
-        {
-
-            Tag existTag = _DbContext.Tags.FirstOrDefault(t => t.Id == tag.Id);
-
-            if (existTag == null)
-            {
-                return NotFound();
-            }
-
-            _DbContext.Tags.Remove(existTag);
+            _DbContext.Tags.Remove(tag);
             _DbContext.SaveChanges();
-
-            return RedirectToAction("Index");
+            return Ok();
         }
+
+      
     }
 }
