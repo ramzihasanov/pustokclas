@@ -3,13 +3,22 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using WebApplication6.DAL;
+using WebApplication6.Repositories;
+using WebApplication6.Repositories.IImplementations;
+using WebApplication6.Services;
+using WebApplication6.Services.IImplementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ISliderRepository, SliderRepository>();
+builder.Services.AddScoped<ISliderService, SliderService>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddDbContext<AppDbContext>(opt=>{
-opt.UseSqlServer("Server=DESKTOP-V775DN1;Database=PustokkBB206;Trusted_Connection=True");
+opt.UseSqlServer("Server=LAPTOP-NMS9BKLR;Database=Pustok;Trusted_Connection=True");
 
 });
 var app = builder.Build();

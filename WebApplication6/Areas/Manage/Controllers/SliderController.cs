@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication6.CustomExceptions.SliderExceptions;
+using WebApplication6.Repositories;
+using WebApplication6.Services;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {
     [Area("Manage")]
     public class SliderController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ISliderService _sliderService;
 
-        public SliderController(AppDbContext context)
+        public SliderController(ISliderService sliderService)
         {
-            _context = context;
+            _sliderService = sliderService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Slider> sliders = _context.Slider.ToList();
+            List<Slider> sliders = await _sliderService.GetAllSAsync();
             return View(sliders);
         }
 
@@ -25,96 +28,92 @@ namespace WebApplication6.Areas.Manage.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Slider slider)
+        public async Task<IActionResult> Create(Slider slider)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) return View(slider);
+
+            try
             {
+                await _sliderService.CreateAsync(slider);
+            }
+            catch (InvalidContentType ex)
+            {
+                ModelState.AddModelError(ex.Propertyname, ex.Message);
+                return View();
+            }
+            catch (InvalidImgSize ex)
+            {
+                ModelState.AddModelError(ex.Propertyname, ex.Message);
+                return View();
+            }
+            catch (InvalidImg ex)
+            {
+                ModelState.AddModelError(ex.Propertyname, ex.Message);
                 return View();
             }
 
-            _context.Slider.Add(slider);
-            _context.SaveChanges();
-
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
-        public IActionResult Update(int id)
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
         {
-            Slider wantedSilider = _context.Slider.FirstOrDefault(s => s.Id == id);
+            if (id == null) return View();
 
-            if (wantedSilider == null) return NotFound();
+            Slider slide = await _sliderService.GetAsync(id);
 
-            return View(wantedSilider);
+            if (slide == null) return NotFound();
+
+            return View(slide);
         }
 
         [HttpPost]
-        public IActionResult Update(Slider slider)
+        public async Task<IActionResult> Update(Slider slide)
         {
-             if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View();
 
-            Slider existSlider = _context.Slider.FirstOrDefault(x => x.Id == slider.Id);
-
-            if (existSlider == null) return NotFound();
-            string oldFilePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + existSlider.ImageUrl;
-
-            if (slider.formFile != null)
+            try
+            {
+                await _sliderService.UpdateAsync(slide);
+            }
+            catch (InvalidContentType ex)
+            {
+                ModelState.AddModelError(ex.Propertyname, ex.Message);
+                return View();
+            }
+            catch (InvalidImgSize ex)
+            {
+                ModelState.AddModelError(ex.Propertyname, ex.Message);
+                return View();
+            }
+            catch (InvalidImg ex)
+            {
+                ModelState.AddModelError(ex.Propertyname, ex.Message);
+                return View();
+            }
+            catch (InvalidNullReferance)
             {
 
-                string newFileName = slider.formFile.FileName;
-                if (slider.formFile.ContentType != "image/jpeg" && slider.formFile.ContentType != "image/png")
-                {
-                    ModelState.AddModelError("FormFile", "ancaq sekil yukle :)");
-                }
-
-                if (slider.formFile.Length > 1048576)
-                {
-                    ModelState.AddModelError("FormFile", "guce salma 1 mb az yukle");
-                }
-
-                if (slider.formFile.FileName.Length > 64)
-                {
-                    newFileName = newFileName.Substring(newFileName.Length - 64, 64);
-                }
-
-                newFileName = Guid.NewGuid().ToString() + newFileName;
-
-                string newFilePath = "C:\\Users\\ll novbe\\Desktop\\secondtask\\WebApplication1\\WebApplication1\\wwwroot\\assets\\images\\" + newFileName;
-                using (FileStream fileStream = new FileStream(newFilePath, FileMode.Create))
-                {
-                    slider.formFile.CopyTo(fileStream);
-                }
-
-                if (System.IO.File.Exists(oldFilePath))
-                {
-                    System.IO.File.Delete(oldFilePath);
-                }
-
-                existSlider.ImageUrl = newFileName;
             }
 
-            existSlider.Title = slider.Title;
-            existSlider.Descirption = slider.Descirption;
-            existSlider.RedirectorUrl = slider.RedirectorUrl;
-            existSlider.RedirectorUrlText = slider.RedirectorUrlText;
-            
-
-
-            _context.SaveChanges();
-
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
-
-        public IActionResult Delete(int id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null) return NotFound();
-            Slider wantedSilider = _context.Slider.FirstOrDefault(s => s.Id == id);
 
-            if (wantedSilider == null) return NotFound();
-            _context.Slider.Remove(wantedSilider);
-            _context.SaveChanges();
+            try
+            {
+                await _sliderService.DeleteAsync(id);
+            }
+            catch (InvalidNullReferance)
+            {
+
+            }
+
             return Ok();
         }
 
-      
     }
 }

@@ -60,15 +60,15 @@
             <span asp-validation-for="@Model.GenreId"></span>
         </div>
         <div class="form-group">
-            <label asp-for="@Model.TagIds">Tag</label>
-            <select asp-for="@Model.TagIds" class="form-select" aria-label="Default select example">
+            <label asp-for="TagIds">Tag</label>
+            <select asp-for="TagIds" class="form-select" aria-label="Default select example">
                 @foreach (var item in ViewBag.Tags)
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
 
             </select>
-            <span asp-validation-for="@Model.TagIds"></span>
+            <span asp-validation-for="TagIds"></span>
         </div>
 
         <div class="form-check">

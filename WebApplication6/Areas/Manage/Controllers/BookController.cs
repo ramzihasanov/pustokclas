@@ -1,321 +1,154 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WebApplication6.Helpers;
+using WebApplication6.Services;
+using WebApplication6.CustomExceptions.BookException;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {
     [Area("Manage")]
     public class BookController : Controller
     {
-        private readonly AppDbContext _context;
-        private readonly IWebHostEnvironment _env;
-
-        public BookController(AppDbContext Context,IWebHostEnvironment env)
+        private readonly IBookService _bookService;
+        public BookController(IBookService bookService)
         {
-            _context = Context;
-            _env = env;
+            _bookService = bookService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            List<Book> Books = await _bookService.GetAllAsync();
 
-            var book = _context.Books.ToList();
-            return View(book);
+            return View(Books);
+
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Authors = _context.Authors.ToList();
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Tags = _context.Tags.ToList();
+            ViewBag.Authors = await _bookService.GetAllAuthorAsync();
+            ViewBag.Genres = await _bookService.GetAllGenreAsync();
+            ViewBag.Tags = await _bookService.GetAllTagAsync();
+
             return View();
         }
+
         [HttpPost]
-        public IActionResult Create(Book book)
+        public async Task<IActionResult> Create(Book book)
         {
-            ViewBag.Authors = _context.Authors.ToList();
-            ViewBag.Genres = _context.Genres.ToList();
-            if (!ModelState.IsValid) return View(book);
-            if (!_context.Authors.Any(x => x.Id == book.AuthorId))
-            {
-                ModelState.AddModelError("AuthorId", "Author not found!!!");
-                return View();
-            }
-            if (!_context.Genres.Any(x => x.Id == book.GenreId))
-            {
-                ModelState.AddModelError("GenreId", "Genre not found!!!");
-                return View();
-            }
-            var check = false;
-            if (book.TagIds != null)
-            {
-                foreach (var tagId in book.TagIds)
-                {
-                    if (!_context.Tags.Any(x => x.Id == tagId)) { 
-                    check = true;
-                    break;
-                     }
-                }
-            }
-            if (check)
-            {
-                ModelState.AddModelError("TagId", "Tag not found!!!");
-                return View(book);
-            }
-            else
-            {
-                if (book.TagIds != null)
-                {
-                    foreach (var tagId in book.TagIds)
-                    {
-                        BookTag bookTag = new BookTag
-                        {
-                            Book = book,
-                            TagId = tagId
-                        };
-                        _context.BookTags.Add(bookTag);
-                    }
-                }
-            }
-            if (book.FaceImage != null)
-            {
-
-                if (book.FaceImage.ContentType != "image/png" && book.FaceImage.ContentType != "image/jpeg")
-                {
-                    ModelState.AddModelError("FaceImage", "ancaq sekil yukle");
-                    return View();
-                }
-
-                if (book.FaceImage.Length > 1048576)
-                {
-                    ModelState.AddModelError("FaceImage", "1 mb dan az yukle pul yazir ");
-                    return View();
-                }
-
-                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.FaceImage);
-                BookImage bookImage = new BookImage
-                {
-                    book = book,
-                    ImageUrl = newFileName,
-                    IsPoster = true,
-                };
-                _context.BookImages.Add(bookImage);
-            };
-
-
-            if (book.BackViewImg != null)
-            {
-
-                if (book.BackViewImg.ContentType != "image/png" && book.BackViewImg.ContentType != "image/jpeg")
-                {
-                    ModelState.AddModelError("BackViewImg", "ancaq sekil yuklemek olur");
-                    return View();
-                }
-
-                if (book.BackViewImg.Length > 1048576)
-                {
-                    ModelState.AddModelError("BackViewImg", "1 mb dan cox yukleme ");
-                    return View();
-                }
-
-                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.BackViewImg);
-                BookImage bookImage = new BookImage
-                {
-                    book = book,
-                    ImageUrl = newFileName,
-                    IsPoster = false,
-                };
-                _context.BookImages.Add(bookImage);
-            };
-
-            if (book.BookDetailImgs != null)
-            {
-                foreach (var img in book.BookDetailImgs)
-                {
-                    string fileName = img.FileName;
-                    if (img.ContentType != "image/png" && img.ContentType != "image/jpeg")
-                    {
-                        ModelState.AddModelError("BookDetailImgs", "ancaq sekilyukle");
-                        return View();
-                    }
-
-                    if (img.Length > 1048576)
-                    {
-                        ModelState.AddModelError("BookDetailImgs", "1 mb dan cox yukleme ");
-                        return View();
-                    }
-
-                    string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", img);
-                    BookImage bookImage = new BookImage
-                    {
-                        book = book,
-                        ImageUrl = newFileName,
-                        IsPoster = null,
-                    };
-                    _context.BookImages.Add(bookImage);
-                }
-            }
-
-
-            _context.Books.Add(book);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Update(int id)
-        {
-            ViewBag.Authors = _context.Authors.ToList();
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Tags = _context.Tags.ToList();
+            ViewBag.Authors = await _bookService.GetAllAuthorAsync();
+            ViewBag.Genres = await _bookService.GetAllGenreAsync();
+            ViewBag.Tags = await _bookService.GetAllTagAsync();
 
             if (!ModelState.IsValid) return View();
-            var existBook = _context.Books.Include(x => x.BookTags).Include(x=>x.BookImages).FirstOrDefault(x => x.Id == id);
+            try
+            {
+                await _bookService.CreateAsync(book);
+            }
+            catch (InvalidContenttype ex)
+            {
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
+                return View();
+            }
+            catch (InvalidImgSize ex)
+            {
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
+                return View();
+            }
+            catch (InvalidImg ex)
+            {
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
+                return View();
+            }
+            catch (invalidGenreId ex)
+            {
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
+                return View();
+            }
+            catch (InvalidTagId ex)
+            {
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
+                return View();
+            }
+            catch (InvalidAuthorid ex)
+            {
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
+                return View();
+            }
 
-            existBook.TagIds = existBook.BookTags.Select(x => x.TagId).ToList();
-            return View(existBook);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            ViewBag.Authors = await _bookService.GetAllAuthorAsync();
+            ViewBag.Genres = await _bookService.GetAllGenreAsync();
+            ViewBag.Tags = await _bookService.GetAllTagAsync();
+
+            if (id == null) return NotFound();
+
+            try
+            {
+                await _bookService.DeleteAsync(id);
+            }
+            catch (InvalidNullreferance)
+            {
+
+            }
+
+            return Ok();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            ViewBag.Authors = await _bookService.GetAllAuthorAsync();
+            ViewBag.Genres = await _bookService.GetAllGenreAsync();
+            ViewBag.Tags = await _bookService.GetAllTagAsync();
+
+            if (id == null) return NotFound();
+
+            Book book = await _bookService.GetAsync(id);
+
+            if (book == null) return NotFound();
+
+            book.TagIds = book.BookTags.Select(t => t.TagId).ToList();
+
+
+            return View(book);
         }
 
         [HttpPost]
-        public IActionResult Update(Book book)
+        public async Task<IActionResult> Update(Book book)
         {
-            ViewBag.Authors = _context.Authors.ToList();
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Tags = _context.Tags.ToList();
 
-            var existBook = _context.Books.Include(x => x.BookTags).Include(x=>x.BookImages).FirstOrDefault(x => x.Id == book.Id);
-            if (existBook == null) return NotFound();
-            if (!ModelState.IsValid) return View(book);
-            if (!_context.Authors.Any(x => x.Id == book.AuthorId))
+            ViewBag.Authors = await _bookService.GetAllAuthorAsync();
+            ViewBag.Genres = await _bookService.GetAllGenreAsync();
+            ViewBag.Tags = await _bookService.GetAllTagAsync();
+
+
+            try
             {
-                ModelState.AddModelError("AuthorId", "Author not found!!!");
+                await _bookService.UpdateAsync(book);
+            }
+            catch (InvalidContenttype ex)
+            {
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
                 return View();
             }
-            if (!_context.Genres.Any(x => x.Id == book.GenreId))
+            catch (InvalidImgSize ex)
             {
-                ModelState.AddModelError("GenreId", "Genre not found!!!");
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
                 return View();
             }
-            existBook.BookTags.RemoveAll(x => !book.TagIds.Contains(x.TagId));
-            foreach (var item in book.TagIds.Where(x => !existBook.BookTags.Any(y => y.TagId == x)))
+            catch (InvalidImg ex)
             {
-                BookTag booktag = new BookTag
-                {
-                    TagId = item
-                };
-                existBook.BookTags.Add(booktag);
+                ModelState.AddModelError(ex.PropertyName, ex.Message);
+                return View();
             }
-              existBook.BookImages.RemoveAll(x => !book.BookImagesIds.Contains(x.Id) && x.IsPoster == true);
-
-            if (book.FaceImage != null)
+            catch (InvalidNullreferance)
             {
 
-                if (book.FaceImage.ContentType != "image/png" && book.FaceImage.ContentType != "image/jpeg")
-                {
-                    ModelState.AddModelError("FaceImage", "ancaq sekil yukle");
-                    return View();
-                }
-
-                if (book.FaceImage.Length > 1048576)
-                {
-                    ModelState.AddModelError("FaceImage", "1 mb dan az yukle pul yazir ");
-                    return View();
-                }
-
-                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.FaceImage);
-                BookImage bookImage = new BookImage
-                {
-                    book = book,
-                    ImageUrl = newFileName,
-                    IsPoster = true,
-                };
-                existBook.BookImages.Add(bookImage);
-            };
-
-
-            if (book.BackViewImg != null)
-            {
-
-                if (book.BackViewImg.ContentType != "image/png" && book.BackViewImg.ContentType != "image/jpeg")
-                {
-                    ModelState.AddModelError("BackViewImg", "ancaq sekil yuklemek olur");
-                    return View();
-                }
-
-                if (book.BackViewImg.Length > 1048576)
-                {
-                    ModelState.AddModelError("BackViewImg", "1 mb dan cox yukleme ");
-                    return View();
-                }
-
-                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.BackViewImg);
-                BookImage bookImage = new BookImage
-                {
-                    book = book,
-                    ImageUrl = newFileName,
-                    IsPoster = false,
-                };
-                existBook.BookImages.Add(bookImage);
-            };
-
-            if (book.BookDetailImgs != null)
-            {
-                foreach (var img in book.BookDetailImgs)
-                {
-                    string fileName = img.FileName;
-                    if (img.ContentType != "image/png" && img.ContentType != "image/jpeg")
-                    {
-                        ModelState.AddModelError("BookDetailImgs", "ancaq sekilyukle");
-                        return View();
-                    }
-
-                    if (img.Length > 1048576)
-                    {
-                        ModelState.AddModelError("BookDetailImgs", "1 mb dan cox yukleme ");
-                        return View();
-                    }
-
-                    string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", img);
-                    BookImage bookImage = new BookImage
-                    {
-                        book = book,
-                        ImageUrl = newFileName,
-                        IsPoster = null,
-                    };
-                    existBook.BookImages.Add(bookImage);
-                }
             }
 
-            existBook.Name = book.Name;
-            existBook.Description = book.Description;
-            existBook.CostPrice = book.CostPrice;
-            existBook.DisPrice = book.DisPrice;
-            existBook.Code = book.Code;
-            existBook.SalePrice = book.SalePrice;
-            existBook.Tax = book.Tax;
-            existBook.IsAvailable = book.IsAvailable;
-            existBook.AuthorId = book.AuthorId;
-            existBook.GenreId = book.GenreId;
-            _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult Delete(int id)
-
-        {
-            ViewBag.Authors = _context.Authors.ToList();
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Tags = _context.Tags.ToList();
-
-            if (id == null) return NotFound("Error");
-
-            Book book = _context.Books.Include(x => x.BookImages).FirstOrDefault(x => x.Id == id);
-
-            if (book == null) return NotFound("Error");
-            _context.Books.Remove(book);
-            _context.SaveChanges();
-
-
-            return Ok();
-
-
-        }
-        
     }
 }
