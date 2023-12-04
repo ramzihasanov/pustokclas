@@ -85,7 +85,7 @@ namespace WebApplication6.Services.IImplementations
                     throw new InvalidImgSize("FaceImage", "1 mb dan az yukle pul yazir ");
                     
                 }
-
+                
                 string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.FaceImage);
                 BookImage bookImage = new BookImage
                 {

@@ -18,7 +18,7 @@ builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddDbContext<AppDbContext>(opt=>{
-opt.UseSqlServer("Server=LAPTOP-NMS9BKLR;Database=Pustok;Trusted_Connection=True");
+opt.UseSqlServer("Server=DESKTOP-V775DN1;Database=NurgetBB206;Trusted_Connection=True");
 
 });
 var app = builder.Build();

@@ -1,25 +1,49 @@
-﻿@model List<Service>
+﻿@model List<Service>;
 @{
     int counter = 0;
 }
+@section cssFiles{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.1/sweetalert2.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+}
 
-<div class="d-flex justify-content-between align-items-center container-fluid">
-    <h1>Services</h1>
-    <div><a asp-action="create" asp-controller="service" class="btn btn-primary">Create</a></div>
-</div>
+    <style>
+        .table-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            background-color: #435d7d !important;
+        }
 
-<div class="container-fluid">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">icon</th>
-               
-            </tr>
-        </thead>
-        <tbody>
+            .table-title .title {
+                font-weight: 700;
+            }
+
+            .table-title span {
+                font-weight: 300;
+            }
+
+        .create-btn {
+            width: 110px;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="table-title text-white">
+            <h1 class="title">Services <span>Table</span></h1>
+            <a class="btn btn-success create-btn" asp-action="Create" asp-controller="Service">Create</a>
+        </div>
+        <table class="table table-hover table-striped shadow">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Icon</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
             @foreach (var service in Model)
             {
                 counter++;
@@ -29,12 +53,20 @@
                     <td>@service.Description</td>
                     <td>@service.Icon</td>
                     <td>
-                        <a asp-controller="service" asp-action="update" asp-route-id="@service.Id" class="btn btn-success">Update</a>
-                        <a asp-controller="service" asp-action="delete" asp-route-id="@service.Id" class="btn btn-danger">Delete</a>
+                        <a class="btn btn-warning" asp-action="Update" asp-controller="Service" asp-route-id="@service.Id">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a class="btn btn-danger delete-btn" asp-action="Delete" asp-controller="Service" asp-route-id="@service.Id">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             }
-
         </tbody>
     </table>
 </div>
+
+@section jsFiles{
+    <script src="~/assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.1/sweetalert2.min.js"></script>
+}
