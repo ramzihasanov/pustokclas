@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication6.CustomExceptions.SliderExceptions;
 using WebApplication6.Repositories;
-using WebApplication6.Services;
+using WebApplication6.Services.Interfaces;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {
