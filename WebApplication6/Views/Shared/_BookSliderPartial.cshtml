@@ -1,4 +1,5 @@
 ﻿@model List<Book>
+
 <div class="product-slider multiple-row  slider-border-multiple-row  sb-slick-slider"
      data-slick-setting='{
                             "autoplay": true,
@@ -28,13 +29,13 @@
                 </div>
                 <div class="product-card--body">
                     <div class="card-image">
-                        <img src="~/uploads/books/@book.BookImages.FirstOrDefault(bi => bi.IsPoster == true)?.ImageUrl" alt="">
+                        <img src="~/upload/@book.BookImages.FirstOrDefault(x=>x.IsPoster == true)?.ImageUrl" alt="">
                         <div class="hover-contents">
                             <a href="product-details.html" class="hover-image">
-                                <img src="~/uploads/books/@book.BookImages.FirstOrDefault(bi => bi.IsPoster == false)?.ImageUrl" alt="">
+                                <img src="~/upload/@book.BookImages.FirstOrDefault(x=>x.IsPoster == false)?.ImageUrl" alt="">
                             </a>
                             <div class="hover-btns">
-                                <a href="cart.html" class="single-btn">
+                                <a asp-action="addtobasket" asp-controller="product" asp-route-bookId="@book.Id" class="single-btn add-to-basket">
                                     <i class="fas fa-shopping-basket"></i>
                                 </a>
                                 <a href="wishlist.html" class="single-btn">
@@ -44,14 +45,14 @@
                                     <i class="fas fa-random"></i>
                                 </a>
                                 <a href="#" data-toggle="modal" data-target="#quickModal"
-                               class="single-btn">
+                                   class="single-btn">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="price-block">
-                        <span class="price">@book.SalePrice - @(book.SalePrice * book.DisPrice)/100</span>
+                        <span class="price">@(book.SalePrice - ((book.SalePrice * book.DisPrice) / 100))</span>
                         <del class="price-old">@book.SalePrice</del>
                         <span class="price-discount">@(book.DisPrice)%</span>
                     </div>
@@ -59,4 +60,5 @@
             </div>
         </div>
     }
+
 </div>
