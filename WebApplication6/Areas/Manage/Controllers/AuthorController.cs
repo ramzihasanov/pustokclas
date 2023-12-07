@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication6.DAL;
+using WebApplication6.Models;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {

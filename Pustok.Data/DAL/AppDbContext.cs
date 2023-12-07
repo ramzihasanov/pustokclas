@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+
+using Microsoft.EntityFrameworkCore;
+using WebApplication6.Models;
 
 namespace WebApplication6.DAL
 {

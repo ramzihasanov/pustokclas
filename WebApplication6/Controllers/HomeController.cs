@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebApplication6.DAL;
 using WebApplication6.ViewModels;
 
 namespace WebApplication6.Controllers

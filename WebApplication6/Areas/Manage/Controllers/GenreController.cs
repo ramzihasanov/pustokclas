@@ -1,21 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Pustok.Business.CustomExceptions.GenreException;
+using WebApplication6.DAL;
+using WebApplication6.Models;
+using WebApplication6.Services.Interfaces;
 
 namespace WebApplication6.Areas.Manage.Controllers
 {
     [Area("Manage")]
     public class GenreController : Controller
     {
-        private readonly AppDbContext _context;
+        
+        private readonly IGenreService _genreService;
 
-        public GenreController(AppDbContext context)
+        public GenreController( IGenreService genreService)
         {
-            _context = context;
+           
+            _genreService = genreService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var genres = _context.Genres.ToList();
+            var genres = await _genreService.GetAllAsync();
             return View(genres);
         }
         public IActionResult Create()
@@ -23,50 +29,39 @@ namespace WebApplication6.Areas.Manage.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Genre genre)
+        public async Task<IActionResult> Create(Genre genre)
         {
             if (!ModelState.IsValid) return View(genre);
-            if (_context.Genres.Any(x => x.Name.ToLower().Trim() == genre.Name.ToLower().Trim()))
-            {
-                ModelState.AddModelError("Name", "Genre alredy exist!!!");
-                return View(genre);
-            }
-            _context.Genres.Add(genre);
-            _context.SaveChanges();
+         
+
+           await _genreService.CreateAsync(genre);
+
             return RedirectToAction("Index");
         }
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
-            Genre wanted = _context.Genres.FirstOrDefault(x => x.Id == id);
+            Genre wanted = await _genreService.GetByIdAsync(id);
             if (wanted == null) return NotFound();
             return View(wanted);
         }
         [HttpPost]
-        public IActionResult Update(Genre genre)
+        public async Task<IActionResult> Update(Genre genre)
         {
-            Genre existGenre = _context.Genres.FirstOrDefault(x => x.Id == genre.Id);
-            if (existGenre == null) return NotFound();
-            if (!ModelState.IsValid) return View(existGenre);
-            if (_context.Genres.Any(x => x.Id != genre.Id && x.Name.ToLower().Trim() == genre.Name.ToLower().Trim()))
-            {
-                ModelState.AddModelError("Name", "Genre alredy exist!!!");
-                return View(genre);
-            }
-            existGenre.Name = genre.Name;
-            _context.SaveChanges();
+            //Genre existGenre = _appDb.Genres.FirstOrDefault(x => x.Id == genre.Id);
+            //if (existGenre == null) return NotFound();
+            if (!ModelState.IsValid) return View();
+
+            await _genreService.UpdateAsync(genre);
+
             return RedirectToAction("Index");
         }
-        public IActionResult Delete(int id)
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
         {
-            var wanted = _context.Genres.FirstOrDefault(x => x.Id == id);
-            if (wanted == null) return NotFound();
-            Genre genre = _context.Genres.FirstOrDefault(x => x.Id == id);
-            if (genre == null) return NotFound();
-            _context.Genres.Remove(genre);
-            _context.SaveChanges();
+            if (id == null) return NotFound();
+
+           await _genreService.Delete(id);
 
             return Ok();
         }
-      
-    }
-}
+ }   }

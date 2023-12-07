@@ -730,3 +730,9 @@ C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\obj\Debug\net6.0
 C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\obj\Debug\net6.0\WebApplication6.pdb
 C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\obj\Debug\net6.0\WebApplication6.genruntimeconfig.cache
 C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\obj\Debug\net6.0\ref\WebApplication6.dll
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Business.dll
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Core.dll
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Data.dll
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Business.pdb
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Core.pdb
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Data.pdb

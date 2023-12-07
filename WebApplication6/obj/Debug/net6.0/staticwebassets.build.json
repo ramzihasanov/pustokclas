@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ue3Yi0Z3OtENpU/zf2202BDXZcYIZWjhtikSvJ2Xdpc=",
+  "Hash": "YUBC55uqI2RJXOabzAkUx0SgeRrraW/jbLA/21mAeGE=",
   "Source": "WebApplication6",
   "BasePath": "_content/WebApplication6",
   "Mode": "Default",
@@ -33354,6 +33354,40 @@
       "OriginalItemSpec": "wwwroot\\upload\\03695d32-522a-4828-8106-79593d4ab7d9ab67616d0000b2730becc103c42e7ae0f77c084a.jfif"
     },
     {
+      "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\0d97f706-bbf6-4285-85d9-8367e86db160book-cover-4194807_640.jpg",
+      "SourceId": "WebApplication6",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\",
+      "BasePath": "_content/WebApplication6",
+      "RelativePath": "upload/0d97f706-bbf6-4285-85d9-8367e86db160book-cover-4194807_640.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\0d97f706-bbf6-4285-85d9-8367e86db160book-cover-4194807_640.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\10907d37-9fa7-421f-a2d1-bc3158fe5567d3s-design-book-covers.jpg-840.jpg",
+      "SourceId": "WebApplication6",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\",
+      "BasePath": "_content/WebApplication6",
+      "RelativePath": "upload/10907d37-9fa7-421f-a2d1-bc3158fe5567d3s-design-book-covers.jpg-840.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\10907d37-9fa7-421f-a2d1-bc3158fe5567d3s-design-book-covers.jpg-840.jpg"
+    },
+    {
       "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\1fc04cef-8f54-4dcf-9cd4-08833347d2aeHasbullaa.jpg",
       "SourceId": "WebApplication6",
       "SourceType": "Discovered",
@@ -33369,6 +33403,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\1fc04cef-8f54-4dcf-9cd4-08833347d2aeHasbullaa.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\2105e2f6-a029-4d3b-9cec-10ba9b79d79ccanva-brown-rusty-mystery-novel-book-cover-db-_00gXZSY.jpg",
+      "SourceId": "WebApplication6",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\",
+      "BasePath": "_content/WebApplication6",
+      "RelativePath": "upload/2105e2f6-a029-4d3b-9cec-10ba9b79d79ccanva-brown-rusty-mystery-novel-book-cover-db-_00gXZSY.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\2105e2f6-a029-4d3b-9cec-10ba9b79d79ccanva-brown-rusty-mystery-novel-book-cover-db-_00gXZSY.jpg"
     },
     {
       "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\35a6f3bc-c5ae-4d63-94ed-08bbcc77c8f8heart-1439973042.jpg",
@@ -33422,6 +33473,23 @@
       "OriginalItemSpec": "wwwroot\\upload\\61003456-c944-4fdc-9056-c410709ff5adHasbullaa.jpg"
     },
     {
+      "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\6f5f1c9d-0af9-4b7a-8c1e-9192685f6f17A-Kite-for-the-Moon.jpg",
+      "SourceId": "WebApplication6",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\",
+      "BasePath": "_content/WebApplication6",
+      "RelativePath": "upload/6f5f1c9d-0af9-4b7a-8c1e-9192685f6f17A-Kite-for-the-Moon.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\6f5f1c9d-0af9-4b7a-8c1e-9192685f6f17A-Kite-for-the-Moon.jpg"
+    },
+    {
       "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\73cf227a-f932-4b32-bd04-e9f7d5513f63ab67616d0000b2730becc103c42e7ae0f77c084a.jfif",
       "SourceId": "WebApplication6",
       "SourceType": "Discovered",
@@ -33454,6 +33522,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\82bda353-3d4c-4da4-86fc-8f187ce1b0cddownload.jfif"
+    },
+    {
+      "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\868c0111-e1ab-4a8e-87bd-2d7a486a2b5cbook-cover-4194807_640.jpg",
+      "SourceId": "WebApplication6",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\",
+      "BasePath": "_content/WebApplication6",
+      "RelativePath": "upload/868c0111-e1ab-4a8e-87bd-2d7a486a2b5cbook-cover-4194807_640.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\868c0111-e1ab-4a8e-87bd-2d7a486a2b5cbook-cover-4194807_640.jpg"
     },
     {
       "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\886ddbf8-7674-433b-a740-343b9127edf9Hasbullaa.jpg",
@@ -33505,6 +33590,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\b2c696ca-2f23-4843-bb5b-e35c2bd1f88bY-letter-logo-with-love-icon-valentines-Graphics-21064973-1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\upload\\dc735146-e3d0-46ab-b5bd-a5ceabdab954d3s-design-book-covers.jpg-840.jpg",
+      "SourceId": "WebApplication6",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\",
+      "BasePath": "_content/WebApplication6",
+      "RelativePath": "upload/dc735146-e3d0-46ab-b5bd-a5ceabdab954d3s-design-book-covers.jpg-840.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\dc735146-e3d0-46ab-b5bd-a5ceabdab954d3s-design-book-covers.jpg-840.jpg"
     }
   ]
 }

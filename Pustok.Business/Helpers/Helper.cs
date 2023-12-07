@@ -1,4 +1,6 @@
-﻿namespace WebApplication6.Helpers
+﻿using Microsoft.AspNetCore.Http;
+
+namespace WebApplication6.Helpers
 {
     public class Helper
     {

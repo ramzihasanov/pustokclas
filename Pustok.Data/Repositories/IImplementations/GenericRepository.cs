@@ -2,6 +2,8 @@
 using System.Linq.Expressions;
 using System.Linq;
 using WebApplication6.Repositories.Interfaces;
+using WebApplication6.Models;
+using WebApplication6.DAL;
 
 namespace WebApplication6.Repositories.IImplementations
 {

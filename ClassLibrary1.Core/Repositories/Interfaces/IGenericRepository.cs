@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using WebApplication6.Models;
 
 namespace WebApplication6.Repositories.Interfaces
 {

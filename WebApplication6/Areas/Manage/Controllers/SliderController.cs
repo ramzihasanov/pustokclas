@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication6.CustomExceptions.SliderExceptions;
+using WebApplication6.Models;
 using WebApplication6.Repositories;
 using WebApplication6.Services.Interfaces;
 

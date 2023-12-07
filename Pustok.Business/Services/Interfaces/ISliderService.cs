@@ -1,4 +1,6 @@
-﻿namespace WebApplication6.Services.Interfaces
+﻿using WebApplication6.Models;
+
+namespace WebApplication6.Services.Interfaces
 {
     public interface ISliderService
     {

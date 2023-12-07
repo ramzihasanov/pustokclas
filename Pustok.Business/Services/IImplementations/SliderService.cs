@@ -1,5 +1,7 @@
-﻿using WebApplication6.CustomExceptions.SliderExceptions;
+﻿using Microsoft.AspNetCore.Hosting;
+using WebApplication6.CustomExceptions.SliderExceptions;
 using WebApplication6.Helpers;
+using WebApplication6.Models;
 using WebApplication6.Repositories.Interfaces;
 using WebApplication6.Services.Interfaces;
 
@@ -49,7 +51,7 @@ namespace WebApplication6.Services.IImplementations
         {
             if (id == null) throw new InvalidNullReferance();
 
-            Slider wantedSlide = await _sliderRepository.GetSliderByIdAsync(id);
+            Slider wantedSlide = await _sliderRepository.GetByIdAsync(x => x.Id == id && x.IsDeleted == false);
 
             if (wantedSlide == null) throw new InvalidNullReferance();
 
@@ -60,13 +62,13 @@ namespace WebApplication6.Services.IImplementations
                 File.Delete(path);
             }
 
-             _sliderRepository.Delete(wantedSlide);
+             _sliderRepository.DeleteAsync(wantedSlide);
             await _sliderRepository.CommitAsync();
         }
 
         public async Task<Slider> GetAsync(int id)
         {
-            return await _sliderRepository.GetSliderByIdAsync(id);
+            return await _sliderRepository.GetByIdAsync(x=>x.Id==id && x.IsDeleted==false);
         }
 
         public async Task<List<Slider>> GetAllSAsync()
@@ -76,7 +78,7 @@ namespace WebApplication6.Services.IImplementations
 
         public async Task UpdateAsync(Slider slider)
         {
-            Slider ExistesSlide = await _sliderRepository.GetSliderByIdAsync(slider.Id);
+            Slider ExistesSlide = await _sliderRepository.GetByIdAsync(x => x.Id == slider.Id && x.IsDeleted == false);
 
             if (ExistesSlide == null) throw new InvalidNullReferance();
 

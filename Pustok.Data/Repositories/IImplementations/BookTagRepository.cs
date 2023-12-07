@@ -1,4 +1,9 @@
-﻿using WebApplication6.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using WebApplication6.DAL;
+
+using WebApplication6.Models;
+using WebApplication6.Repositories.Interfaces;
 
 namespace WebApplication6.Repositories.IImplementations
 {
@@ -7,5 +12,7 @@ namespace WebApplication6.Repositories.IImplementations
         public BookTagRepository(AppDbContext context) : base(context)
         {
         }
+
+      
     }
 }

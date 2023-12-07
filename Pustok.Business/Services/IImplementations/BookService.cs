@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
 using WebApplication6.CustomExceptions.BookException;
 using WebApplication6.Helpers;
+using WebApplication6.Models;
 using WebApplication6.Repositories.Interfaces;
 using WebApplication6.Services.Interfaces;
 
@@ -8,29 +9,45 @@ namespace WebApplication6.Services.IImplementations
 {
     public class BookService : IBookService
     {
-        private readonly IWebHostEnvironment _env;
-        private readonly IBookRepository _bookRepository;
-        public BookService(IWebHostEnvironment env, IBookRepository bookRepository)
-        {
-            _env = env;
-            _bookRepository = bookRepository;
 
+
+        private readonly IBookRepository _bookRepository;
+        private readonly IGenreRepository _genreRepository;
+        private readonly IAuthorRepository _authorRepository;
+        private readonly ITagRepository _tagRepository;
+        private readonly IBookTagRepository _bookTagsRepository;
+        private readonly IWebHostBuilder _env;
+        private readonly IBookImageRepository _bookImagesRepository;
+
+        public BookService(IBookRepository bookRepository,
+                           IGenreRepository genreRepository,
+                           IAuthorRepository authorRepository,
+                           ITagRepository tagRepository,
+                           IWebHostBuilder env,
+                           IBookImageRepository bookImageRepository,
+                           IBookTagRepository bookTagRepository)
+
+        {
+            _bookRepository = bookRepository;
+            _genreRepository = genreRepository;
+            _authorRepository = authorRepository;
+            _tagRepository = tagRepository;
+            _bookTagsRepository = bookTagRepository;
+            _env=env;
+            _bookImagesRepository = bookImageRepository;
         }
+
         public async Task CreateAsync(Book book)
         {
 
-            List<Author> Authors = await _bookRepository.GetAllAuthorAsync();
-            List<Genre> Genres = await _bookRepository.GetAllGenreAsync();
-            List<Tag> Tags = await _bookRepository.GetAllTagAsync();
-            List<BookTag> BookTags = await _bookRepository.GetAllBookTagAsync();
-            List<BookImage> BookImages = await _bookRepository.GetAllBookImagesAsync();
+          
 
-            if (!Authors.Any(a => a.Id == book.AuthorId))
+            if (!_bookRepository.Table.Any(a => a.Id == book.AuthorId))
             {
                 throw new InvalidAuthorid("AuthorId", "author is not found!!!");
             }
 
-            if (!Genres.Any(g => g.Id == book.GenreId))
+            if (!_bookRepository.Table.Any(g => g.Id == book.GenreId))
             {
                 throw new invalidGenreId("GenreId", "genre is not found!!!");
             }
@@ -41,7 +58,7 @@ namespace WebApplication6.Services.IImplementations
             {
                 foreach (var item in book.TagIds)
                 {
-                    if (!Tags.Any(t => t.Id == item))
+                    if (!_bookRepository.Table.Any(t => t.Id == item))
                     {
                         check = true;
                         break;
@@ -66,7 +83,7 @@ namespace WebApplication6.Services.IImplementations
                             TagId = item,
                         };
 
-                        await _bookRepository.CreateBookTagAsync(bookTag);
+                        await _bookTagsRepository.CreateAsync(bookTag);
                     }
                 }
             }
@@ -86,8 +103,8 @@ namespace WebApplication6.Services.IImplementations
                     throw new InvalidImgSize("FaceImage", "1 mb dan az yukle pul yazir ");
                     
                 }
-                
-                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.FaceImage);
+                string path = "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\";
+                string newFileName = Helper.GetFileName(path, "upload", book.FaceImage);
                 BookImage bookImage = new BookImage
                 {
                     book = book,
@@ -95,7 +112,7 @@ namespace WebApplication6.Services.IImplementations
                     IsPoster = true,
                 };
 
-                await _bookRepository.CreateBookImageAsync(bookImage);
+                await _bookImagesRepository.CreateAsync(bookImage);
             };
 
             if (book.BackViewImg != null)
@@ -110,15 +127,15 @@ namespace WebApplication6.Services.IImplementations
                 {
                     throw new InvalidImgSize("FaceImage", "1 mb dan az yukle pul yazir ");
                 }
-
-                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.BackViewImg);
+                string path = "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\";
+                string newFileName = Helper.GetFileName(path, "upload", book.BackViewImg);
                 BookImage bookImage = new BookImage
                 {
                     book = book,
                     ImageUrl = newFileName,
                     IsPoster = false,
                 };
-               await _bookRepository.CreateBookImageAsync( bookImage);
+               await _bookImagesRepository.CreateAsync( bookImage);
             };
 
             if (book.BookDetailImgs != null)
@@ -135,15 +152,15 @@ namespace WebApplication6.Services.IImplementations
                     {
                         throw new InvalidImgSize("FaceImage", "1 mb dan az yukle pul yazir ");
                     }
-
-                    string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", img);
+                    string path = "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\";
+                    string newFileName = Helper.GetFileName(path, "upload", img);
                     BookImage bookImage = new BookImage
                     {
                         book = book,
                         ImageUrl = newFileName,
                         IsPoster = null,
                     };
-                    await _bookRepository.CreateBookImageAsync(bookImage);
+                    await _bookImagesRepository.CreateAsync(bookImage);
                 }
             }
 
@@ -155,45 +172,19 @@ namespace WebApplication6.Services.IImplementations
         {
             if (id == null) throw new InvalidNullreferance();
 
-            Book wantedBook = await _bookRepository.GetByIdAsync(x=>x.Id==id);
+            Book wantedBook = await _bookRepository.GetByIdAsync(x=>x.Id==id && x.IsDeleted==false);
 
             if (wantedBook == null) throw new InvalidNullreferance();
 
-            if (wantedBook.BookImages != null)
-            {
-                foreach (var item in wantedBook.BookImages)
-                {
-                    string path = Path.Combine(_env.WebRootPath, "upload", item.ImageUrl);
 
-                    if (File.Exists(path))
-                    {
-                        File.Delete(path);
-                    }
-                }
-            }
 
-            _bookRepository.DeleteAsync(wantedBook);
+             wantedBook.IsDeleted = true;
             await _bookRepository.CommitAsync();
         }
 
         public async Task<List<Book>> GetAllAsync()
         {
-            return await _bookRepository.GetAllAsync();
-        }
-
-        public async Task<List<Author>> GetAllAuthorAsync()
-        {
-            return await _bookRepository.GetAllAuthorAsync();
-        }
-
-        public async Task<List<Genre>> GetAllGenreAsync()
-        {
-            return await _bookRepository.GetAllGenreAsync();
-        }
-
-        public async Task<List<Tag>> GetAllTagAsync()
-        {
-            return await _bookRepository.GetAllTagAsync();
+           return await _bookRepository.GetAllAsync();
         }
 
         public async Task<Book> GetAsync(int id)
@@ -203,24 +194,18 @@ namespace WebApplication6.Services.IImplementations
 
         public async Task UpdateAsync(Book book)
         {
-            List<Book> Books = await _bookRepository.GetAllAsync();
-            List<Author> Authors = await _bookRepository.GetAllAuthorAsync();
-            List<Genre> Genres = await _bookRepository.GetAllGenreAsync();
-            List<Tag> Tags = await _bookRepository.GetAllTagAsync();
-            List<BookTag> BookTags = await _bookRepository.GetAllBookTagAsync();
-            List<BookImage> BookImages = await _bookRepository.GetAllBookImagesAsync();
-
+          
 
             Book existBook = await _bookRepository.GetByIdAsync(x => x.Id == book.Id);
 
             if (existBook == null) throw new InvalidNullreferance();
 
-            if (!Authors.Any(a => a.Id == book.AuthorId))
+            if (!_bookImagesRepository.Table.Any(a => a.Id == book.AuthorId))
             {
                 throw new InvalidAuthorid("AuthorId", "author is not found!!!");
             }
 
-            if (!Genres.Any(g => g.Id == book.GenreId))
+            if (!_bookImagesRepository.Table.Any(g => g.Id == book.GenreId))
             {
                 throw new invalidGenreId("GenreId", "genre is not found!!!");
             }
@@ -242,7 +227,8 @@ namespace WebApplication6.Services.IImplementations
             if (book.FaceImage != null)
             {
                 string folderPath = "upload";
-                string path = Path.Combine(_env.WebRootPath, folderPath, existBook.BookImages.FirstOrDefault(x => x.IsPoster == true).ImageUrl);
+                string pathh = "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\";
+                string path = Path.Combine(pathh, folderPath, existBook.BookImages.FirstOrDefault(x => x.IsPoster == true).ImageUrl);
 
                 existBook.BookImages.RemoveAll(bi => !book.BookImagesIds.Contains(bi.Id) && bi.IsPoster == true);
 
@@ -262,8 +248,8 @@ namespace WebApplication6.Services.IImplementations
                 {
                     throw new InvalidImgSize("FaceImage", "1 mb dan az yukle");
                 }
-
-                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.FaceImage);
+              
+                string newFileName = Helper.GetFileName(pathh, "upload", book.FaceImage);
                 BookImage bookImage = new BookImage
                 {
                     book = book,
@@ -275,8 +261,9 @@ namespace WebApplication6.Services.IImplementations
 
             if (book.BackViewImg != null)
             {
+                string pathh = "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\";
                 string folderPath = "upload";
-                string path = Path.Combine(_env.WebRootPath, folderPath, existBook.BookImages.Where(x => x.IsPoster == false).FirstOrDefault().ImageUrl);
+                string path = Path.Combine(pathh, folderPath, existBook.BookImages.Where(x => x.IsPoster == false).FirstOrDefault().ImageUrl);
                 existBook.BookImages.RemoveAll(x => !book.BookImagesIds.Contains(x.Id) && x.IsPoster == false);
 
 
@@ -294,8 +281,8 @@ namespace WebApplication6.Services.IImplementations
                 {
                     throw new InvalidImgSize("BackViewImg", "1 mbdan az yukle");
                 }
-
-                string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", book.BackViewImg);
+              
+                string newFileName = Helper.GetFileName(pathh, "upload", book.BackViewImg);
                 BookImage bookImage = new BookImage
                 {
                     book = book,
@@ -309,7 +296,8 @@ namespace WebApplication6.Services.IImplementations
 
             foreach (var item in existBook.BookImages.Where(x => !book.BookImagesIds.Contains(x.Id) && x.IsPoster == null))
             {
-                string path = Path.Combine(_env.WebRootPath, "upload", item.ImageUrl);
+                string pathh = "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\";
+                string path = Path.Combine(pathh, "upload", item.ImageUrl);
 
                 if (File.Exists(path))
                 {
@@ -333,8 +321,8 @@ namespace WebApplication6.Services.IImplementations
                     {
                         throw new InvalidImgSize("BookDetailImgs", "1 mbdan az yukle");
                     }
-
-                    string newFileName = Helper.GetFileName(_env.WebRootPath, "upload", img);
+                    string path = "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\wwwroot\\";
+                    string newFileName = Helper.GetFileName(path, "upload", img);
                     BookImage bookImage = new BookImage
                     {
                         book = book,
