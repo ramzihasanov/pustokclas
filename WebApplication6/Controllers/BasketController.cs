@@ -96,8 +96,7 @@ namespace WebApplication6.Controllers
 
                 foreach (var item in basketItemList)
                 {
-                    checkoutItem = new CheckoutViewModel
-                    {
+                    checkoutItem = new CheckoutViewModel()                    {
                         Book = await _bookRepository.GetByIdAsync(x => x.Id == item.BookId),
                         Count = item.Count
                     };

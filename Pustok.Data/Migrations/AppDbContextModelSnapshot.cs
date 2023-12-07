@@ -8,7 +8,7 @@ using WebApplication6.DAL;
 
 #nullable disable
 
-namespace WebApplication6.Migrations
+namespace Pustok.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

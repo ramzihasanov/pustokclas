@@ -13,12 +13,22 @@ namespace WebApplication6.Areas.Manage.Controllers
      
         private readonly IBookRepository _bookRepository;
         private readonly IBookService _bookService;
+        private readonly IAuthorRepository _authorRepository;
+        private readonly IGenreRepository _genreRepository;
+        private readonly ITagRepository _tagRepository;
 
-        public BookController( IBookRepository bookRepository, IBookService bookService)
+        public BookController( IBookRepository bookRepository,
+            IBookService bookService,
+            IAuthorRepository authorRepository,
+            IGenreRepository genreRepository,
+            ITagRepository tagRepository )
         {
            
             _bookRepository = bookRepository;
             _bookService = bookService;
+            _authorRepository = authorRepository;
+            _genreRepository = genreRepository;
+            _tagRepository = tagRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -28,17 +38,17 @@ namespace WebApplication6.Areas.Manage.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            ViewBag.Authors = await _bookRepository.GetAllAsync();
-            ViewBag.Genres = await _bookRepository.GetAllAsync();
-            ViewBag.Tags = await _bookRepository.GetAllAsync();
+            ViewBag.Authors = await _authorRepository.GetAllAsync();
+            ViewBag.Genres = await _genreRepository.GetAllAsync();
+            ViewBag.Tags = await _tagRepository.GetAllAsync();
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(Book book)
         {
-            ViewBag.Authors = await _bookRepository.GetAllAsync();
-            ViewBag.Genres = await _bookRepository.GetAllAsync();
-            ViewBag.Tags = await _bookRepository.GetAllAsync();
+            ViewBag.Authors = await _authorRepository.GetAllAsync();
+            ViewBag.Genres = await _genreRepository.GetAllAsync();
+            ViewBag.Tags = await _tagRepository.GetAllAsync();
 
             if (!ModelState.IsValid) return View(book);
 
@@ -82,21 +92,21 @@ namespace WebApplication6.Areas.Manage.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            ViewBag.Authors = await _bookRepository.GetAllAsync();
-            ViewBag.Genres = await _bookRepository.GetAllAsync();
-            ViewBag.Tags = await _bookRepository.GetAllAsync();
+            ViewBag.Authors = await _authorRepository.GetAllAsync();
+            ViewBag.Genres = await _genreRepository.GetAllAsync();
+            ViewBag.Tags = await _tagRepository.GetAllAsync();
 
             if (!ModelState.IsValid) return View();
-            var existBook = await _bookRepository.GetByIdAsync(x => x.Id == id, "BookImages");
+            var existBook = await _bookRepository.GetByIdAsync(x => x.Id == id, "BookImages", "Author", "Genre", "BookTags.Tag");
             return View(existBook);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(Book book)
         {
-            ViewBag.Authors = await _bookRepository.GetAllAsync();
-            ViewBag.Genres = await _bookRepository.GetAllAsync();
-            ViewBag.Tags = await _bookRepository.GetAllAsync();
+            ViewBag.Authors = await _authorRepository.GetAllAsync();
+            ViewBag.Genres = await _genreRepository.GetAllAsync();
+            ViewBag.Tags = await _tagRepository.GetAllAsync();
 
             if (!ModelState.IsValid) return View(book);
 
@@ -141,9 +151,9 @@ namespace WebApplication6.Areas.Manage.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            ViewBag.Authors = await _bookRepository.GetAllAsync();
-            ViewBag.Genres = await _bookRepository.GetAllAsync();
-            ViewBag.Tags = await _bookRepository.GetAllAsync();
+            ViewBag.Authors = await _authorRepository.GetAllAsync();
+            ViewBag.Genres = await _genreRepository.GetAllAsync();
+            ViewBag.Tags = await _tagRepository.GetAllAsync();
 
             if (id == null) return NotFound();
 

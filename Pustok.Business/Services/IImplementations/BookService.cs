@@ -16,14 +16,12 @@ namespace WebApplication6.Services.IImplementations
         private readonly IAuthorRepository _authorRepository;
         private readonly ITagRepository _tagRepository;
         private readonly IBookTagRepository _bookTagsRepository;
-        private readonly IWebHostBuilder _env;
         private readonly IBookImageRepository _bookImagesRepository;
 
         public BookService(IBookRepository bookRepository,
                            IGenreRepository genreRepository,
                            IAuthorRepository authorRepository,
-                           ITagRepository tagRepository,
-                           IWebHostBuilder env,
+                           ITagRepository tagRepository,                       
                            IBookImageRepository bookImageRepository,
                            IBookTagRepository bookTagRepository)
 
@@ -33,7 +31,7 @@ namespace WebApplication6.Services.IImplementations
             _authorRepository = authorRepository;
             _tagRepository = tagRepository;
             _bookTagsRepository = bookTagRepository;
-            _env=env;
+          
             _bookImagesRepository = bookImageRepository;
         }
 
@@ -42,12 +40,12 @@ namespace WebApplication6.Services.IImplementations
 
           
 
-            if (!_bookRepository.Table.Any(a => a.Id == book.AuthorId))
+            if (!_authorRepository.Table.Any(a => a.Id == book.AuthorId))
             {
                 throw new InvalidAuthorid("AuthorId", "author is not found!!!");
             }
 
-            if (!_bookRepository.Table.Any(g => g.Id == book.GenreId))
+            if (!_genreRepository.Table.Any(g => g.Id == book.GenreId))
             {
                 throw new invalidGenreId("GenreId", "genre is not found!!!");
             }
@@ -58,7 +56,7 @@ namespace WebApplication6.Services.IImplementations
             {
                 foreach (var item in book.TagIds)
                 {
-                    if (!_bookRepository.Table.Any(t => t.Id == item))
+                    if (!_tagRepository.Table.Any(t => t.Id == item))
                     {
                         check = true;
                         break;

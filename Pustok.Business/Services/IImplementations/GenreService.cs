@@ -15,7 +15,7 @@ namespace WebApplication6.Services.IImplementations
         }
         public async Task CreateAsync(Genre entity)
         {
-            if (_genreRepository.Table.Any(x => x.Name == entity.Name)) ;
+            if (_genreRepository.Table.Any(x => x.Name == entity.Name)) 
             throw new InvalidNameException("GenreId","this name has data , please  insert other name ");
             await _genreRepository.CreateAsync(entity);
             await _genreRepository.CommitAsync();

@@ -50,12 +50,13 @@
         <div class="row col-12" style="padding:0px;">
             <div class="col-md-4 d-flex align-items-center justify-content-center">
                 <label asp-for="GenreId">Genres</label>
-                <select asp-for="GenreId" class="form-select" aria-label="Default select example" style="margin-left:10px">
+                @*<select asp-for="GenreId" class="form-select" aria-label="Default select example" style="margin-left:10px">
                     @foreach (var genre in ViewBag.Genres)
                     {
                         <option value="@genre.Id">@genre.Name</option>
                     }
-                </select>
+                </select>*@
+                <select asp-for="GenreId" asp-items="@(new SelectList(ViewBag.Genres,"Id", "Name"))"></select>
                 <span asp-validation-for="GenreId" style="color:red"></span>
             </div>
             <div class="col-md-4 d-flex align-items-center justify-content-center">
