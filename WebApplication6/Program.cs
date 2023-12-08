@@ -4,6 +4,7 @@ using WebApplication6.Repositories.IImplementations;
 using WebApplication6.Repositories.Interfaces;
 using WebApplication6.Services.IImplementations;
 using WebApplication6.Services.Interfaces;
+using WebApplication6.ViewServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,7 @@ builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<ITagService, TagService>();
 
 builder.Services.AddScoped<IBookTagRepository, BookTagRepository>();
-
+builder.Services.AddScoped<LayoutService>();
 builder.Services.AddScoped<IBookImageRepository, BookImageRepository>();
 builder.Services.AddSession(opt =>
 {

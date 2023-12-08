@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.EntityFrameworkCore;
+using Pustok.Core.Models;
 using WebApplication6.Models;
 
 namespace WebApplication6.DAL
@@ -20,6 +21,6 @@ namespace WebApplication6.DAL
         public DbSet<Genre> Genres { get; set; }
         public DbSet<BookTag> BookTags{ get; set; }
         public DbSet<BookImage> BookImages{ get; set; }
-
+        public DbSet<Setting> Settings { get; set; }
     }
 }
