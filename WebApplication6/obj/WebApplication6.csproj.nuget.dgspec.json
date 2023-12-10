@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ll novbe\\Desktop\\pustokclas\\WebApplication6\\WebApplication6.csproj": {}
+    "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\WebApplication6.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ll novbe\\Desktop\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj": {
+    "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj",
+        "projectUniqueName": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj",
         "projectName": "Pustok.Core",
-        "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj",
-        "packagesPath": "C:\\Users\\ll novbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\ClassLibrary1.Core\\obj\\",
+        "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj",
+        "packagesPath": "C:\\Users\\hesen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\ClassLibrary1.Core\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ll novbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\hesen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -47,6 +43,10 @@
             "Microsoft.AspNetCore.Http.Features": {
               "target": "Package",
               "version": "[5.0.17, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.25, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -81,25 +81,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\Pustok.Business.csproj": {
+    "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\Pustok.Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\Pustok.Business.csproj",
+        "projectUniqueName": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\Pustok.Business.csproj",
         "projectName": "Pustok.Business",
-        "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\Pustok.Business.csproj",
-        "packagesPath": "C:\\Users\\ll novbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\obj\\",
+        "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\Pustok.Business.csproj",
+        "packagesPath": "C:\\Users\\hesen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ll novbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\hesen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -113,8 +109,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Data\\Pustok.Data.csproj": {
-                "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Data\\Pustok.Data.csproj"
+              "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Data\\Pustok.Data.csproj": {
+                "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Data\\Pustok.Data.csproj"
               }
             }
           }
@@ -165,25 +161,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Data\\Pustok.Data.csproj": {
+    "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Data\\Pustok.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Data\\Pustok.Data.csproj",
+        "projectUniqueName": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Data\\Pustok.Data.csproj",
         "projectName": "Pustok.Data",
-        "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Data\\Pustok.Data.csproj",
-        "packagesPath": "C:\\Users\\ll novbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Data\\obj\\",
+        "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Data\\Pustok.Data.csproj",
+        "packagesPath": "C:\\Users\\hesen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Data\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ll novbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\hesen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -197,8 +189,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ll novbe\\Desktop\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj": {
-                "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj"
+              "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj": {
+                "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\ClassLibrary1.Core\\Pustok.Core.csproj"
               }
             }
           }
@@ -246,25 +238,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ll novbe\\Desktop\\pustokclas\\WebApplication6\\WebApplication6.csproj": {
+    "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\WebApplication6.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\WebApplication6\\WebApplication6.csproj",
+        "projectUniqueName": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\WebApplication6.csproj",
         "projectName": "WebApplication6",
-        "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\WebApplication6\\WebApplication6.csproj",
-        "packagesPath": "C:\\Users\\ll novbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\WebApplication6\\obj\\",
+        "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\WebApplication6.csproj",
+        "packagesPath": "C:\\Users\\hesen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\WebApplication6\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ll novbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\hesen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -278,8 +266,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\Pustok.Business.csproj": {
-                "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\Pustok.Business.csproj"
+              "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\Pustok.Business.csproj": {
+                "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\Pustok.Business.csproj"
               }
             }
           }
@@ -332,7 +320,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

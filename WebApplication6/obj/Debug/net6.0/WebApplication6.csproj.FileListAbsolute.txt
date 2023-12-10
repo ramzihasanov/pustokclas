@@ -742,3 +742,8 @@ C:\Users\ll novbe\Desktop\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Dat
 C:\Users\ll novbe\Desktop\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Business.pdb
 C:\Users\ll novbe\Desktop\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Core.pdb
 C:\Users\ll novbe\Desktop\pustokclas\WebApplication6\bin\Debug\net6.0\Pustok.Data.pdb
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\hesen\OneDrive\İş masası\pustokclas\WebApplication6\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll

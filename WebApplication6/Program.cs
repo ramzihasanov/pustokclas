@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Pustok.Core.Models;
 using WebApplication6.DAL;
 using WebApplication6.Repositories.IImplementations;
 using WebApplication6.Repositories.Interfaces;
@@ -35,11 +37,23 @@ builder.Services.AddSession(opt =>
 });
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-    opt.UseSqlServer("Server=DESKTOP-V775DN1;Database=NurgetBB206;Trusted_Connection=True");
+    opt.UseSqlServer("Server=LAPTOP-NMS9BKLR;Database=PustokBb206New;Trusted_Connection=True");
 
 });
 
+builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
+{
+    opt.Password.RequiredUniqueChars = 1;
+    opt.Password.RequireNonAlphanumeric=true;
+    opt.Password.RequiredLength = 8;
+    opt.Password.RequireDigit = true;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireUppercase = true;
 
+    opt.User.RequireUniqueEmail = false;
+
+
+}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,7 +61,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseAuthentication();
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();

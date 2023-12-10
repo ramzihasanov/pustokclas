@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication6.DAL;
 using WebApplication6.Models;
 
@@ -6,6 +7,7 @@ namespace WebApplication6.Areas.Manage.Controllers
 {
 
     [Area("Manage")]
+    [Authorize]
     public class AuthorController : Controller
     {
         private readonly AppDbContext _context;

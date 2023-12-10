@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication6.CustomExceptions.BookException;
 using WebApplication6.DAL;
 using WebApplication6.Models;
@@ -8,6 +9,7 @@ using WebApplication6.Services.Interfaces;
 namespace WebApplication6.Areas.Manage.Controllers
 {
     [Area("Manage")]
+    [Authorize]
     public class BookController : Controller
     {
      
