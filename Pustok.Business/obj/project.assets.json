@@ -10942,19 +10942,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hesen\\.nuget\\packages\\": {}
+    "C:\\Users\\ll novbe\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\Pustok.Business.csproj",
+      "projectUniqueName": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\Pustok.Business.csproj",
       "projectName": "Pustok.Business",
-      "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\Pustok.Business.csproj",
-      "packagesPath": "C:\\Users\\hesen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Business\\obj\\",
+      "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\Pustok.Business.csproj",
+      "packagesPath": "C:\\Users\\ll novbe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Business\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\hesen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ll novbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10968,8 +10973,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Data\\Pustok.Data.csproj": {
-              "projectPath": "C:\\Users\\hesen\\OneDrive\\İş masası\\pustokclas\\Pustok.Data\\Pustok.Data.csproj"
+            "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Data\\Pustok.Data.csproj": {
+              "projectPath": "C:\\Users\\ll novbe\\Desktop\\pustokclas\\Pustok.Data\\Pustok.Data.csproj"
             }
           }
         }
@@ -11020,7 +11025,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
