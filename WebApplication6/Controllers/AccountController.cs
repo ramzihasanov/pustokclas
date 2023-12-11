@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Pustok.Core.Models;
 using WebApplication6.ViewModels;
@@ -66,6 +67,38 @@ namespace WebApplication6.Controllers
           await userManager.AddToRoleAsync(appUser1, "Member");
             await signInManager.SignInAsync(appUser1, isPersistent: false);
             return RedirectToAction("Index", "home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(MemberRegisterViewModel memberLoginVM)
+        {
+            if (!ModelState.IsValid) return View();
+            AppUser admin = null;
+            admin = await userManager.FindByEmailAsync(memberLoginVM.Email);
+
+            if (admin == null)
+            {
+                ModelState.AddModelError("", "Invalid Email or Password");
+                return View();
+            }
+            var result = await signInManager.PasswordSignInAsync(admin, memberLoginVM.Password, false, false);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Invalid Email or Password");
+                return View();
+            }
+            return RedirectToAction("Index", "home");
+        }
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
+            HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
 
